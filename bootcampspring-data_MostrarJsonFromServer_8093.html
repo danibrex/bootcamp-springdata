@@ -11,7 +11,7 @@
 
 <h2>Respuesta del servidor (actualiza para ver los cambios tras operar).</h2>
 <p>Este es el Json recibido. Enlace: <span><a href="http://localhost:8093/personas">URL/personas en el puerto 8093</a></span></p>
-
+<p id="para2"></p>
 <h2>Insertar personas:</h2>
 <form action="http://localhost:8093/personas/crear/">
 	<label for="fnombre">Nombre:</label><br>
@@ -24,7 +24,7 @@
   </form> 
   <br/>
 <!--Párrafos para las pruebas-->
-<table id="tableListar">
+<table id="tableListar" style="text-align: center;">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -39,7 +39,7 @@
 	</tbody>
 </table>
 <p id="para1"></p>
-<p id="para2"></p>
+
 <p id="para3"></p>
 <p id="para4"></p>
 <p id="para5"></p>
@@ -75,8 +75,6 @@
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.nombre +"</a></td>"+
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.apellidos +"</a></td>"+
 											  "<td><a href='" + urlEliminar + "" + value.id + "'>Eliminar</a></td>");
-
-	
 	}
 
 	function clean(){
