@@ -8,11 +8,13 @@
 <h2>Insertar personas:</h2>
 <form action="http://localhost:8093/personas/crear/">
 	<label for="fnombre">Nombre:</label><br>
-	<input type="text" id="fnombre" name="fnombre" value="" onkeyup="cambiaInput()" required><br>
+	<input type="text" id="fnombre" name="fnombre" value="" onclick="cambiaInput()"required><br>
 	<label for="fapellidos">Apellidos:</label><br>
-	<input type="text" id="fapellidos" name="fapellidos" value="" onkeyup="cambiaInput()" required><br><br>
-	<input type="submit" value="Crear">
-	<input type="reset" value="Limpiar el formulario">
+	<input type="text" id="fapellidos" name="fapellidos" value="" onclick="cambiaInput()" required><br><br>
+	<input type="submit" value="Crear" id="btnCrear">
+	<input type="button" value="Actualizar" onclick="enviaDatos()" id="btnActualizar" style="display:none">	
+	<input type="reset" onclick="reset()" value="Limpiar el formulario" id="btnLimpiar">
+
   </form> 
   <br/>
 
@@ -23,33 +25,24 @@
 <p id="para5"></p>
 
   <script>
-	let txt = "";
 	const arrPersonasTxt = [];
 	var para1, para2, para3, para4, para5;
 	var id;
+	var inputNombre, inputApellidos;
 
 	para1 = document.getElementById("para1");
 	para2 = document.getElementById("para2");
 	para3 = document.getElementById("para3");
 	
-
-	function cambiaInput(){
-		var inputName = document.getElementById("fnombre").value;
-		var inputApellidos = document.getElementById("fapellidos").value;
-	    para4 = document.getElementById("para1").innerHTML = inputName;
-		para5 = document.getElementById("para2").innerHTML = inputApellidos; 
-	}
-
 	const xmlhttp = new XMLHttpRequest();
 	xmlhttp.onload = function() {
-
+		document.getElementById("btnCrear").style.display="inline";
 		const myArr = JSON.parse(this.responseText);
 
 		myArr.forEach(bucle1);
 		//lo convierte a array
 		arrPersonasTxt2 = arrPersonasTxt.slice(0,arrPersonasTxt.length + 1);	  
 		arrPersonasTxt2.forEach(bucle2);
-
 		para2.innerHTML = "Encontrados: " + arrPersonasTxt.length + " registros en la base de datos."
 
 	}
@@ -63,15 +56,48 @@
 
 
 	function bucle2(value, index, array) {
-		id = encontrarId(arrPersonasTxt2, index);
-		para3.insertAdjacentHTML("beforeend", arrPersonasTxt2[index] + "     </a><a href='editar.html?id="+ id + "'>Editar</a>" + 
-		"      <a href='http://localhost:8093/persona/eliminar?id=" + id + "'>Eliminar</a><br>");
+		let id = encontrarId(arrPersonasTxt2, index);
+		para3.insertAdjacentHTML("beforeend", arrPersonasTxt2[index] + "     <a href='#'" +"onclick='actualizar("+id+")'" +">Editar</a>" + 
+		"      <a href='http://localhost:8093/persona/eliminar?id=" + id + "'>Eliminar</a><br>");		
 	} 
 
 	function encontrarId(arrCadena, index){
 		let caraterBlanco = arrPersonasTxt2[index].indexOf(" ");
 		id = arrPersonasTxt2[index].substring(0, caraterBlanco + 1);
 		return id;
+	}
+
+	function reset(){
+		document.getElementById("btnActualizar").style.display="none";
+		document.getElementById("btnCrear").style.display="inline";
+	}
+
+	function enviaDatos(){
+		alert(inputNombre + inputApellidos);
+		window.location = "http://localhost:8093/personas/editar/?id="+id+"&fnombre="+inputNombre+"&fapellidos="+inputApellidos;
+	}
+
+	
+    /** Obtiene los cambios que se realizan en el input al levantar la tecla */
+	function cambiaInput(){
+		inputNombre = document.getElementById("fnombre").value;
+		inputApellidos = document.getElementById("fapellidos").value; 
+	}
+
+	function actualizar(id){
+		document.getElementById("btnActualizar").style.display="inline";
+		document.getElementById("btnCrear").style.display="none";
+		const xmlhttp = new XMLHttpRequest();
+		xmlhttp.onload = function() {
+
+			const obj = JSON.parse(this.responseText);
+			document.getElementById("fnombre").value= obj.nombre;
+			document.getElementById("fapellidos").value= obj.apellidos;
+			inputNombre = obj.nombre;
+	    	inputApellidos = obj.apellidos;          
+		}
+		xmlhttp.open("GET", "http://localhost:8093/buscar?id=" + id);
+		xmlhttp.send(); 
 	}
 
   </script>
