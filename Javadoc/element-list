@@ -1,0 +1,5 @@
+com.nttdata.springdata
+com.nttdata.springdata.controllers
+com.nttdata.springdata.entities
+com.nttdata.springdata.repository
+com.nttdata.springdata.services
