@@ -23,8 +23,8 @@
 	<input type="reset" onclick="clean()" value="Limpiar el formulario" id="btnLimpiar">
   </form> 
   <br/>
-<!--Párrafos para las pruebas-->
-<table id="tableListar" style="text-align: center;">
+
+<table style="text-align: center;">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -33,13 +33,12 @@
 			<th>Eliminar</th>
 		</tr>
 	</thead>
-	<tbody id="tBody">
+	<tbody>
 		<tr id="trData">
 		</tr>
 	</tbody>
 </table>
 <p id="para1"></p>
-
 <p id="para3"></p>
 <p id="para4"></p>
 <p id="para5"></p>
@@ -71,7 +70,7 @@
 	function bucle1(value, index, array) {
 		arrPersonasObj[index] = value;
 
-		trData.insertAdjacentHTML("afterend", "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.id + "</a>" +"</td>"+
+		trData.insertAdjacentHTML("afterend", "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.id + "</a></td>"+
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.nombre +"</a></td>"+
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.apellidos +"</a></td>"+
 											  "<td><a href='" + urlEliminar + "" + value.id + "'>Eliminar</a></td>");
