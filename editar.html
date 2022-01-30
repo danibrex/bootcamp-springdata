@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="para1"></p>
+<p id="para2"></p>
+<p id="para3"></p>
+<p id="para4"></p>
+<p id="para5"></p>
+
+<h2>Editar Registro:</h2>
+<form>
+	<label for="fnombre">Nombre:</label><br>
+	<input type="text" id="fnombre" name="fnombre" value="" onkeyup="cambiaInput()"><br>
+	<label for="fapellidos">Apellidos:</label><br>
+	<input type="text" id="fapellidos" name="fapellidos" value="" onkeyup="cambiaInput()"><br><br>
+	<input type="button" value="Actualizar" onclick="enviaDatos()">
+  </form> 
+  <br/>
+  <a href="bootcampspring-data_MostrarJsonFromServer_8093.html">Volver al inicio.</a>
+  <script>
+	let txt = "";
+    let params = new URLSearchParams(location.search);
+    var id = params.get('id');
+
+    var inputNombre, inputApellidos;
+
+  
+	function cambiaInput(){
+
+	    inputNombre = document.getElementById("fnombre").value;
+		inputApellidos = document.getElementById("fapellidos").value; 
+	}
+
+    function enviaDatos(){
+
+        window.location = "http://localhost:8093/personas/editar/?id="+id+"&fnombre="+inputNombre+"&fapellidos="+inputApellidos;
+    }
+
+	const xmlhttp = new XMLHttpRequest();
+	xmlhttp.onload = function() {
+
+		const obj = JSON.parse(this.responseText);
+        document.getElementById("fnombre").value= obj.nombre;
+		document.getElementById("fapellidos").value= obj.apellidos;
+        inputNombre = obj.nombre;
+	    inputApellidos = obj.apellidos;        
+	}
+	xmlhttp.open("GET", "http://localhost:8093/buscar?id=" + id);
+	xmlhttp.send();
+
+  </script>
+  </body>
+</html>

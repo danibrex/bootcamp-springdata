@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Respuesta del servidor (actualiza para ver los cambios tras operar).</h2>
+<p>Este es el Json recibido. Enlace: <span><a href="http://localhost:8093/personas">URL/personas en el puerto 8093</a></span></p>
+
+<h2>Insertar personas:</h2>
+<form action="http://localhost:8093/personas/crear/">
+	<label for="fnombre">Nombre:</label><br>
+	<input type="text" id="fnombre" name="fnombre" value="" onkeyup="cambiaInput()" required><br>
+	<label for="fapellidos">Apellidos:</label><br>
+	<input type="text" id="fapellidos" name="fapellidos" value="" onkeyup="cambiaInput()" required><br><br>
+	<input type="submit" value="Crear">
+	<input type="reset" value="Limpiar el formulario">
+  </form> 
+  <br/>
+
+<p id="para1"></p>
+<p id="para2"></p>
+<p id="para3"></p>
+<p id="para4"></p>
+<p id="para5"></p>
+
+  <script>
+	let txt = "";
+	const arrPersonasTxt = [];
+	var para1, para2, para3, para4, para5;
+	var id;
+
+	para1 = document.getElementById("para1");
+	para2 = document.getElementById("para2");
+	para3 = document.getElementById("para3");
+	
+
+	function cambiaInput(){
+		var inputName = document.getElementById("fnombre").value;
+		var inputApellidos = document.getElementById("fapellidos").value;
+	    para4 = document.getElementById("para1").innerHTML = inputName;
+		para5 = document.getElementById("para2").innerHTML = inputApellidos; 
+	}
+
+	const xmlhttp = new XMLHttpRequest();
+	xmlhttp.onload = function() {
+
+		const myArr = JSON.parse(this.responseText);
+
+		myArr.forEach(bucle1);
+		//lo convierte a array
+		arrPersonasTxt2 = arrPersonasTxt.slice(0,arrPersonasTxt.length + 1);	  
+		arrPersonasTxt2.forEach(bucle2);
+
+		para2.innerHTML = "Encontrados: " + arrPersonasTxt.length + " registros en la base de datos."
+
+	}
+	xmlhttp.open("GET", "http://localhost:8093/personas", true);
+	xmlhttp.send();
+
+
+	function bucle1(value, index, array) {
+		arrPersonasTxt[index] = value.id + " " + value.nombre + " " + value.apellidos; 	    
+	}
+
+
+	function bucle2(value, index, array) {
+		id = encontrarId(arrPersonasTxt2, index);
+		para3.insertAdjacentHTML("beforeend", arrPersonasTxt2[index] + "     </a><a href='editar.html?id="+ id + "'>Editar</a>" + 
+		"      <a href='http://localhost:8093/persona/eliminar?id=" + id + "'>Eliminar</a><br>");
+	} 
+
+	function encontrarId(arrCadena, index){
+		let caraterBlanco = arrPersonasTxt2[index].indexOf(" ");
+		id = arrPersonasTxt2[index].substring(0, caraterBlanco + 1);
+		return id;
+	}
+
+  </script>
+  </body>
+</html>
