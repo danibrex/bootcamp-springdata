@@ -24,6 +24,20 @@
   </form> 
   <br/>
 <!--Párrafos para las pruebas-->
+<table id="tableListar">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Apellidos</th>
+			<th>Eliminar</th>
+		</tr>
+	</thead>
+	<tbody id="tBody">
+		<tr id="trData">
+		</tr>
+	</tbody>
+</table>
 <p id="para1"></p>
 <p id="para2"></p>
 <p id="para3"></p>
@@ -42,7 +56,8 @@
 	para1 = document.getElementById("para1");
 	para2 = document.getElementById("para2");
 	para3 = document.getElementById("para3");
-
+	trData = document.getElementById("trData");
+	tBody = document.getElementById("tBody");
 	const xmlhttp = new XMLHttpRequest();
 	xmlhttp.onload = function() {
 		document.getElementById("btnCrear").style.display="inline";
@@ -55,10 +70,13 @@
 
 	function bucle1(value, index, array) {
 		arrPersonasObj[index] = value;
-		para3.insertAdjacentHTML("beforeend", "<a href='#' onclick='actualizar(" + index + ")'>" + 
-												value.id + " " + value.nombre +" "+ value.apellidos + "</a>");
 
-		para3.insertAdjacentHTML("beforeend", " --------> <a href='" + urlEliminar + "" + value.id + "'>Eliminar</a><br>");			
+		trData.insertAdjacentHTML("afterend", "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.id + "</a>" +"</td>"+
+											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.nombre +"</a></td>"+
+											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.apellidos +"</a></td>"+
+											  "<td><a href='" + urlEliminar + "" + value.id + "'>Eliminar</a></td>");
+
+	
 	}
 
 	function clean(){
