@@ -55,8 +55,10 @@
 
 	function bucle1(value, index, array) {
 		arrPersonasObj[index] = value;
-		para3.insertAdjacentHTML("beforeend", "<a href='#' onclick='actualizar("+index+")'>" + value.id+ " " +value.nombre+" "+ value.apellidos+"</a>");
-		para3.insertAdjacentHTML("beforeend", " --------> <a href='"+urlEliminar + "" +value.id + "'>Eliminar</a><br>");			
+		para3.insertAdjacentHTML("beforeend", "<a href='#' onclick='actualizar(" + index + ")'>" + 
+												value.id + " " + value.nombre +" "+ value.apellidos + "</a>");
+
+		para3.insertAdjacentHTML("beforeend", " --------> <a href='" + urlEliminar + "" + value.id + "'>Eliminar</a><br>");			
 	}
 
 	function clean(){
@@ -65,7 +67,7 @@
 	}
 
 	function enviaDatos(){
-		window.location = urlEditar+id+"&fnombre="+inputNombre+"&fapellidos="+inputApellidos;
+		window.location = urlEditar + id + "&fnombre=" + inputNombre +"&fapellidos=" + inputApellidos;
 	}
 	
 	function cambiaInput(){
@@ -74,10 +76,10 @@
 	}
 
 	function actualizar(index){
-		document.getElementById("btnActualizar").style.display="inline";
-		document.getElementById("btnCrear").style.display="none";
-		document.getElementById("fnombre").value= arrPersonasObj[index].nombre;
-		document.getElementById("fapellidos").value= arrPersonasObj[index].apellidos; 
+		document.getElementById("btnActualizar").style.display = "inline";
+		document.getElementById("btnCrear").style.display = "none";
+		document.getElementById("fnombre").value = arrPersonasObj[index].nombre;
+		document.getElementById("fapellidos").value = arrPersonasObj[index].apellidos; 
 
 		id = index;
 		inputNombre = arrPersonasObj[index].nombre;
