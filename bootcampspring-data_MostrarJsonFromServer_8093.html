@@ -73,7 +73,16 @@
 		trData.insertAdjacentHTML("afterend", "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.id + "</a></td>"+
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.nombre +"</a></td>"+
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.apellidos +"</a></td>"+
-											  "<td><a href='" + urlEliminar + "" + value.id + "'>Eliminar</a></td>");
+											  "<td><a href='#' onclick='confirmaEliminacion(" + value.id + ")'>Eliminar</a></td>");
+	}
+
+	function confirmaEliminacion(id){
+		let eliminar = prompt("¿Seguro que quieres eliminar este registro de la BD? (escribe 's' para confirmar, de lo contrario cancela).");
+		eliminar = eliminar.toLowerCase();	
+		eliminar = eliminar.substring(0,1);
+		if(eliminar == "s"){
+			window.location = urlEliminar + id;
+		}
 	}
 
 	function clean(){
