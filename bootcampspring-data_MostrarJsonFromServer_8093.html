@@ -13,7 +13,7 @@
 	<input type="text" id="fapellidos" name="fapellidos" value="" onclick="cambiaInput()" required><br><br>
 	<input type="submit" value="Crear" id="btnCrear">
 	<input type="button" value="Actualizar" onclick="enviaDatos()" id="btnActualizar" style="display:none">	
-	<input type="reset" onclick="reset()" value="Limpiar el formulario" id="btnLimpiar">
+	<input type="reset" onclick="clean()" value="Limpiar el formulario" id="btnLimpiar">
 
   </form> 
   <br/>
@@ -54,7 +54,6 @@
 		arrPersonasTxt[index] = value.id + " " + value.nombre + " " + value.apellidos; 	    
 	}
 
-
 	function bucle2(value, index, array) {
 		let id = encontrarId(arrPersonasTxt2, index);
 		para3.insertAdjacentHTML("beforeend", arrPersonasTxt2[index] + "     <a href='#'" +"onclick='actualizar("+id+")'" +">Editar</a>" + 
@@ -67,7 +66,7 @@
 		return id;
 	}
 
-	function reset(){
+	function clean(){
 		document.getElementById("btnActualizar").style.display="none";
 		document.getElementById("btnCrear").style.display="inline";
 	}
@@ -83,6 +82,7 @@
 		inputNombre = document.getElementById("fnombre").value;
 		inputApellidos = document.getElementById("fapellidos").value; 
 	}
+
 
 	function actualizar(id){
 		document.getElementById("btnActualizar").style.display="inline";
