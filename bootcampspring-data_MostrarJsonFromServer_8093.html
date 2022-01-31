@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <body>
@@ -10,30 +9,30 @@
 	- @version 0.1 SNAPSHOT 30-1-2022
 -->
 
-<h2>Respuesta del servidor (actualiza para ver los cambios tras operar).</h2>
+<h2>Respuesta del servidor.</h2>
 <p>Este es el Json recibido. Enlace: <span><a href="http://localhost:8093/personas">URL/personas en el puerto 8093</a></span></p>
 <p id="para2"></p>
 <h2>Insertar personas:</h2>
-<form action="http://localhost:8093/personas/crear/">
+<form>
 	<label for="fnombre">Nombre:</label><br>
 	<input type="text" id="fnombre" name="fnombre" value="" onkeyup="cambiaInput()"required><br>
 	<label for="fapellidos">Apellidos:</label><br>
 	<input type="text" id="fapellidos" name="fapellidos" value="" onkeyup="cambiaInput()" required><br><br>
-	<input type="submit" value="Crear" id="btnCrear">
-	<input type="button" value="Actualizar" onclick="enviaDatos()" id="btnActualizar" style="display:none">	
+	<input type="submit" value="Crear" id="btnCrear" onclick="crear()">
+	<input type="button" value="Actualizar" onclick="enviaDatos()" id="btnActualizar" style="display:none">
+	<input type="button" value="Eliminar" onclick="elimina()" id="btnEliminar" style="display:none">
 	<input type="reset" onclick="clean()" value="Limpiar el formulario" id="btnLimpiar">
   </form> 
   <br/>
 
 <table style="text-align: center;">
-	<thead>
+	<thead id="thOculto">
 		<tr>
 			<th>ID</th>
 			<th>Nombre</th>
 			<th>Apellidos</th>
 			<th>Actualizado</th>
-			<th>Fecha actualización</th>
-			<th>Eliminar</th>			
+			<th>Fecha actualización</th>		
 		</tr>
 	</thead>
 	<tbody>
@@ -45,28 +44,41 @@
 <p id="para3"></p>
 <p id="para4"></p>
 <p id="para5"></p>
+
 <!--------------------------------JavaScript--------------------------------------->
+
   <script>
 	const arrPersonasObj = [];
 	var para1, para2, para3, para4, para5;
 	var id;
 	var inputNombre, inputApellidos;
+	var urlCrear = "http://localhost:8093/personas/crear/?fnombre=";
 	var urlEditar = "http://localhost:8093/personas/editar/?id=";
 	var urlEliminar = "http://localhost:8093/persona/eliminar?id=";
 	var urlListar =  "http://localhost:8093/personas";
+	var urlHome; 
+	var intervarlo;
 
 	para1 = document.getElementById("para1");
 	para2 = document.getElementById("para2");
 	para3 = document.getElementById("para3");
 	trData = document.getElementById("trData");
 	tBody = document.getElementById("tBody");
+
 	const xmlhttp = new XMLHttpRequest();
 	xmlhttp.onload = function() {
+		urlHome = window.location.href;
 		document.getElementById("btnCrear").style.display="inline";
 		const myArr = JSON.parse(this.responseText);
 		myArr.forEach(bucle1);
 		para2.innerHTML = "Encontrados: " + myArr.length + " registros en la base de datos."
+		
+		if (myArr.length == 0) {
+			document.getElementById("thOculto").style.display="none";
+		}
+
 	}
+
 	xmlhttp.open("GET", urlListar, true);
 	xmlhttp.send();
 
@@ -77,28 +89,46 @@
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.nombre +"</a></td>"+
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.apellidos +"</a></td>"+
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.actualizacionUsuario +"</a></td>"+
-											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.fechaActualizacion +"</a></td>"+
-											  "<td><a href='#' onclick='confirmaEliminacion(" + value.id + ")'>Eliminar</a></td>");
+											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.fechaActualizacion +"</a></td>");
 	}
 
-	function confirmaEliminacion(id){
+	function confirmaEliminacion(){
 		let eliminar = prompt("¿Seguro que quieres eliminar este registro de la BD? (escribe 's' para confirmar, de lo contrario cancela).");
 		eliminar = eliminar.toLowerCase();	
 		eliminar = eliminar.substring(0,1);
 		if(eliminar == "s"){
 			window.location = urlEliminar + id;
+			volver();
 		}
+
 	}
+
+	function volver(){
+		window.location = urlHome;
+		window.location.reload();
+	}
+
+	function elimina(){
+		confirmaEliminacion();
+	}
+
 
 	function clean(){
 		document.getElementById("btnActualizar").style.display="none";
+		document.getElementById("btnEliminar").style.display="none";
 		document.getElementById("btnCrear").style.display="inline";
 	}
 
 	function enviaDatos(){
 		window.location = urlEditar + id + "&fnombre=" + inputNombre +"&fapellidos=" + inputApellidos;
+		volver();
 	}
-	
+
+	function crear(){
+		window.location = urlCrear + inputNombre +"&fapellidos=" + inputApellidos;
+		volver();
+	}
+
 	function cambiaInput(){
 		inputNombre = document.getElementById("fnombre").value;
 		inputApellidos = document.getElementById("fapellidos").value;
@@ -106,6 +136,7 @@
 
 	function actualizar(index){
 		document.getElementById("btnActualizar").style.display = "inline";
+		document.getElementById("btnEliminar").style.display="inline";
 		document.getElementById("btnCrear").style.display = "none";
 		document.getElementById("fnombre").value = arrPersonasObj[index].nombre;
 		document.getElementById("fapellidos").value = arrPersonasObj[index].apellidos; 
@@ -116,119 +147,4 @@
 	}
   </script>
   </body>
-=======
-<!DOCTYPE html>
-<html>
-<body>
-<!--
-	- Vista HTML y banco de pruebas contra el servidor spring boot data, un proyecto 
-	- spring boot data para la bootcamp nttData.
-	--
-	- @author Daniel
-	- @version 0.1 SNAPSHOT 30-1-2022
--->
-
-<h2>Respuesta del servidor (actualiza para ver los cambios tras operar).</h2>
-<p>Este es el Json recibido. Enlace: <span><a href="http://localhost:8093/personas">URL/personas en el puerto 8093</a></span></p>
-<p id="para2"></p>
-<h2>Insertar personas:</h2>
-<form action="http://localhost:8093/personas/crear/">
-	<label for="fnombre">Nombre:</label><br>
-	<input type="text" id="fnombre" name="fnombre" value="" onkeyup="cambiaInput()"required><br>
-	<label for="fapellidos">Apellidos:</label><br>
-	<input type="text" id="fapellidos" name="fapellidos" value="" onkeyup="cambiaInput()" required><br><br>
-	<input type="submit" value="Crear" id="btnCrear">
-	<input type="button" value="Actualizar" onclick="enviaDatos()" id="btnActualizar" style="display:none">	
-	<input type="reset" onclick="clean()" value="Limpiar el formulario" id="btnLimpiar">
-  </form> 
-  <br/>
-
-<table style="text-align: center;">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Nombre</th>
-			<th>Apellidos</th>
-			<th>Eliminar</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr id="trData">
-		</tr>
-	</tbody>
-</table>
-<p id="para1"></p>
-<p id="para3"></p>
-<p id="para4"></p>
-<p id="para5"></p>
-<!--------------------------------JavaScript--------------------------------------->
-  <script>
-	const arrPersonasObj = [];
-	var para1, para2, para3, para4, para5;
-	var id;
-	var inputNombre, inputApellidos;
-	var urlEditar = "http://localhost:8093/personas/editar/?id=";
-	var urlEliminar = "http://localhost:8093/persona/eliminar?id=";
-	var urlListar =  "http://localhost:8093/personas";
-
-	para1 = document.getElementById("para1");
-	para2 = document.getElementById("para2");
-	para3 = document.getElementById("para3");
-	trData = document.getElementById("trData");
-	tBody = document.getElementById("tBody");
-	const xmlhttp = new XMLHttpRequest();
-	xmlhttp.onload = function() {
-		document.getElementById("btnCrear").style.display="inline";
-		const myArr = JSON.parse(this.responseText);
-		myArr.forEach(bucle1);
-		para2.innerHTML = "Encontrados: " + myArr.length + " registros en la base de datos."
-	}
-	xmlhttp.open("GET", urlListar, true);
-	xmlhttp.send();
-
-	function bucle1(value, index, array) {
-		arrPersonasObj[index] = value;
-
-		trData.insertAdjacentHTML("afterend", "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.id + "</a></td>"+
-											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.nombre +"</a></td>"+
-											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.apellidos +"</a></td>"+
-											  "<td><a href='#' onclick='confirmaEliminacion(" + value.id + ")'>Eliminar</a></td>");
-	}
-
-	function confirmaEliminacion(id){
-		let eliminar = prompt("¿Seguro que quieres eliminar este registro de la BD? (escribe 's' para confirmar, de lo contrario cancela).");
-		eliminar = eliminar.toLowerCase();	
-		eliminar = eliminar.substring(0,1);
-		if(eliminar == "s"){
-			window.location = urlEliminar + id;
-		}
-	}
-
-	function clean(){
-		document.getElementById("btnActualizar").style.display="none";
-		document.getElementById("btnCrear").style.display="inline";
-	}
-
-	function enviaDatos(){
-		window.location = urlEditar + id + "&fnombre=" + inputNombre +"&fapellidos=" + inputApellidos;
-	}
-	
-	function cambiaInput(){
-		inputNombre = document.getElementById("fnombre").value;
-		inputApellidos = document.getElementById("fapellidos").value;
-	}
-
-	function actualizar(index){
-		document.getElementById("btnActualizar").style.display = "inline";
-		document.getElementById("btnCrear").style.display = "none";
-		document.getElementById("fnombre").value = arrPersonasObj[index].nombre;
-		document.getElementById("fapellidos").value = arrPersonasObj[index].apellidos; 
-
-		id = arrPersonasObj[index].id;
-		inputNombre = arrPersonasObj[index].nombre;
-		inputApellidos = arrPersonasObj[index].apellidos;          
-	}
-  </script>
-  </body>
->>>>>>> 7d0d6c9e1815a9bb63144800008277710a6fadba
 </html>
