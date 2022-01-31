@@ -53,6 +53,8 @@ public class PersonMngtServiceImpl implements PersonMngtServiceI {
 		
 		/** Validacion de nulidad*/
 		if (persona != null) {
+			persona.setFechaActualizacion(new Date());
+			persona.setActualizacionUsuario("APP");
 			personaRepositoryI.save(persona);				
 		}
 	}
