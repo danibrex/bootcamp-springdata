@@ -41,22 +41,26 @@ CREATE TABLE IF NOT EXISTS `persona` (
 -- Volcado de datos para la tabla `persona`
 --
 
+INSERT INTO `persona` (`id`, `nombre`, `apellidos`, `actualizacion_usuario`, `fecha_actualizacion`) VALUES
+(1, 'Daniel', 'Gordon', 'APP', '2022-01-31 20:09:08.000000');
+
+/*
 INSERT INTO persona (id, nombre, apellidos) VALUES
 (1, 'Marta', 'Nelson'),
-(2 'Daniel', 'Van'),
+(2, 'Daniel', 'Van'),
 (3, 'Lucas ', 'Grijander'),
 (4, 'Anastasio', 'Randelmore'),
 (5, 'Carmen', 'Esther'),
 (6, 'Daniel', 'Lord'),
-(7, 'Lucas', 'MartÃ­n'),
+(7, 'Lucas', 'Martón'),
 (8, 'Sas', 'Anderson'),
 (9, 'Jander', 'Clander'),
 (10, 'Berta', 'Cleotilda'),
 (11, 'Anabel', 'Cart'),
 (12, 'Flanders', 'McYurtonite'),
 (13, 'Rissoto', 'Parmesani Ramnna'),
-(14, 'Julio', 'CÃ©sar'),
-(15, 'Carmen Esther', 'Pichaco  GonzÃ¡lez'),
+(14, 'Julio', 'César'),
+(15, 'Carmen Esther', 'Pichaco'),
 (16, 'Felice J.', 'Anderson'),
 (17, 'Barman', 'Stranger '),
 (18, 'Babasos', 'Ambrosio'),
@@ -64,6 +68,7 @@ INSERT INTO persona (id, nombre, apellidos) VALUES
 (20, 'Noeman', 'Helderwitch'),
 (21, 'dede', 'dede');
 
+*/
 
 COMMIT;
 
