@@ -19,5 +19,7 @@ import com.nttdata.springdata.entities.Persona;
 //Anotación de respositorio
 @Repository
 public interface PersonaRepositoryI extends JpaRepository<Persona, Integer> {
+	
+	public Persona 	findByNombreAndApellidos(final String nombre, final String apellidos);
 
 }

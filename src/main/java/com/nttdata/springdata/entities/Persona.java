@@ -5,7 +5,6 @@ package com.nttdata.springdata.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +20,7 @@ import javax.persistence.Table;
 //anotaciones de entidad y tabla
 @Entity
 @Table(name="persona")
-public class Persona implements Serializable {
+public class Persona extends AbstractEntity implements Serializable {
 	
 	/** SERIALIZABLE*/
 	private static final long serialVersionUID = 1L;
@@ -32,7 +31,7 @@ public class Persona implements Serializable {
      */
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	/** Id persona (PK) */
 	private int id;
 	

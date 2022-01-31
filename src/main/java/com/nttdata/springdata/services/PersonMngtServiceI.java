@@ -48,6 +48,14 @@ public interface PersonMngtServiceI {
 	 * @param id
 	 */
 	public void eliminaPersona(int id);
+	
+	/**
+	 * Método que busca un registro por nombre y apellidos
+	 * 
+	 * @return Persona
+	 */
+	
+	public Persona buscaNombreApellidos(final String nombre, final String apellidos);
 		
 	
 }

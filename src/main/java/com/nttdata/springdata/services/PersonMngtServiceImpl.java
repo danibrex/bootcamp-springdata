@@ -3,6 +3,7 @@
  */
 package com.nttdata.springdata.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,14 @@ public class PersonMngtServiceImpl implements PersonMngtServiceI {
 
 	@Override
 	public void creaPersona(Persona persona) {
-		personaRepositoryI.save(persona);		
+		
+		/** Validacion de nulidad*/
+		if (persona != null) {
+			persona.setFechaActualizacion(new Date());
+			persona.setActualizacionUsuario("APP");
+			personaRepositoryI.save(persona);				
+		}
+	
 	}
 
 	@Override
@@ -42,12 +50,27 @@ public class PersonMngtServiceImpl implements PersonMngtServiceI {
 		
 	@Override
 	public void editaPersona(Persona persona) {
-		personaRepositoryI.save(persona);	
+		
+		/** Validacion de nulidad*/
+		if (persona != null) {
+			personaRepositoryI.save(persona);				
+		}
 	}
 
 	@Override
 	public void eliminaPersona(int id) {
 		personaRepositoryI.deleteById(id);		
+	}
+
+	@Override
+	public Persona buscaNombreApellidos(String nombre, String apellidos) {
+		// resultado
+		Persona pResultado = null;
+		
+		if (nombre != null && apellidos != null) {
+			pResultado = personaRepositoryI.findByNombreAndApellidos(nombre, apellidos);
+		}
+		return pResultado;
 	}
 	
 
