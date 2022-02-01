@@ -5,7 +5,6 @@ package com.nttdata.springdata.services;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +34,9 @@ public class PersonMngtServiceImpl implements PersonMngtServiceI {
 	@Override
 	public void creaPersona(Persona persona) {
 		
-		/** Validacion de nulidad*/
+		/** Validacion de nulidad y formato de fecha*/
 		if (persona != null) {
-			LocalDateTime fechaLocal = LocalDateTime.now();
-			DateTimeFormatter fechaFormateada = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm:ss");
-			String fechaFinal = fechaLocal.format(fechaFormateada);
-			persona.setFechaActualizacion(fechaFinal);
+			persona.setFechaActualizacion(dameFechaFormateada());
 			persona.setActualizacionUsuario("APP");
 			personaRepositoryI.save(persona);				
 		}
@@ -56,12 +52,9 @@ public class PersonMngtServiceImpl implements PersonMngtServiceI {
 	@Override
 	public void editaPersona(Persona persona) {
 		
-		/** Validacion de nulidad*/
+		/** Validacion de nulidad y formato de fecha*/
 		if (persona != null) {
-			LocalDateTime fechaLocal = LocalDateTime.now();
-			DateTimeFormatter fechaFormateada = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm:ss");
-			String fechaFinal = fechaLocal.format(fechaFormateada);
-			persona.setFechaActualizacion(fechaFinal);
+			persona.setFechaActualizacion(dameFechaFormateada());
 			persona.setActualizacionUsuario("APP");
 			personaRepositoryI.save(persona);				
 		}
@@ -81,6 +74,18 @@ public class PersonMngtServiceImpl implements PersonMngtServiceI {
 			pResultado = personaRepositoryI.findByNombreAndApellidos(nombre, apellidos);
 		}
 		return pResultado;
+	}
+	
+	/**
+	 * Metodo que que devuelve la hora formateada 
+	 * 
+	 * @return String
+	 */
+	public String dameFechaFormateada() {
+		LocalDateTime fechaLocal = LocalDateTime.now();
+		DateTimeFormatter fechaFormateada = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm:ss");
+		String fechaFinal = fechaLocal.format(fechaFormateada);
+		return fechaFinal;
 	}
 	
 
