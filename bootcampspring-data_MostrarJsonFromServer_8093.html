@@ -18,9 +18,10 @@
 	<input type="text" id="fnombre" name="fnombre" value="" onkeyup="cambiaInput()"required><br>
 	<label for="fapellidos">Apellidos:</label><br>
 	<input type="text" id="fapellidos" name="fapellidos" value="" onkeyup="cambiaInput()" required><br><br>
-	<input type="button" value="Crear" id="btnCrear" onclick="crear()">
-	<input type="button" value="Actualizar" onclick="enviaDatos()" id="btnActualizar" style="display:none">
-	<input type="button" value="Eliminar" onclick="elimina()" id="btnEliminar" style="display:none">
+
+	<input type="button" value="Crear" id="btnCrear" onclick="intentaCrear()">
+	<input type="button" value="Actualizar" onclick="intentaActualizar()" id="btnActualizar" style="display:none">
+	<input type="button" value="Eliminar" onclick="intentaEliminar()" id="btnEliminar" style="display:none">
 	<input type="reset" onclick="clean()" value="Limpiar el formulario" id="btnLimpiar">
   </form> 
   <br/>
@@ -92,9 +93,19 @@
 											  "<td><a href='#' onclick='actualizar(" + index + ")'>" + value.fechaActualizacion +"</a></td>");
 	}
 
-	function confirmaEliminacion(){
+	function confirmaEliminar(){
 		window.location = urlEliminar + id;
-		despertador = setTimeout(volver, 10);
+		despertador = setTimeout(volver, 20);
+	}
+
+	function confirmaActualizar(){
+		window.location = urlEditar + id + "&fnombre=" + inputNombre +"&fapellidos=" + inputApellidos;
+		despertador = setTimeout(volver, 30);
+	}
+
+	function confirmaCrear(){
+		window.location = urlCrear + inputNombre +"&fapellidos=" + inputApellidos;
+		despertador = setTimeout(volver, 20);
 	}
 
 	function volver(){
@@ -102,8 +113,15 @@
 		window.location.reload();		 
 	}
 
-	function elimina(){
-		confirmaEliminacion();
+
+	function intentaEliminar(){
+		confirmaEliminar();
+	}
+	function intentaCrear(){
+		confirmaCrear();
+	}
+	function intentaActualizar(){
+		confirmaActualizar();
 	}
 
 
