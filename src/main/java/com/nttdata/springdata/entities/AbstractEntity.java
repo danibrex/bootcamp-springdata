@@ -16,7 +16,7 @@ public abstract class AbstractEntity implements Serializable {
 	private String actualizacionUsuario;
 	
 	/** Auditoría | Día actualizado*/
-	private Date fechaActualizacion;
+	private String fechaActualizacion;
 
 	/**
 	 * @return the fechaActualizacionUsuario
@@ -37,14 +37,14 @@ public abstract class AbstractEntity implements Serializable {
 	 * @return the fechaActualizacion
 	 */
 	@Column(name = "AUDIT_UPDATED_DATE", nullable = false)
-	public Date getFechaActualizacion() {
+	public String getFechaActualizacion() {
 		return fechaActualizacion;
 	}
 
 	/**
 	 * @param fechaActualizacion the fechaActualizacion to set
 	 */
-	public void setFechaActualizacion(Date fechaActualizacion) {
+	public void setFechaActualizacion(String fechaActualizacion) {
 		this.fechaActualizacion = fechaActualizacion;
 	}
 	

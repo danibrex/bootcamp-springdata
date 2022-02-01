@@ -3,6 +3,8 @@
  */
 package com.nttdata.springdata.services;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +37,10 @@ public class PersonMngtServiceImpl implements PersonMngtServiceI {
 		
 		/** Validacion de nulidad*/
 		if (persona != null) {
-			persona.setFechaActualizacion(new Date());
+			LocalDateTime fechaLocal = LocalDateTime.now();
+			DateTimeFormatter fechaFormateada = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm:ss");
+			String fechaFinal = fechaLocal.format(fechaFormateada);
+			persona.setFechaActualizacion(fechaFinal);
 			persona.setActualizacionUsuario("APP");
 			personaRepositoryI.save(persona);				
 		}
@@ -53,7 +58,10 @@ public class PersonMngtServiceImpl implements PersonMngtServiceI {
 		
 		/** Validacion de nulidad*/
 		if (persona != null) {
-			persona.setFechaActualizacion(new Date());
+			LocalDateTime fechaLocal = LocalDateTime.now();
+			DateTimeFormatter fechaFormateada = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm:ss");
+			String fechaFinal = fechaLocal.format(fechaFormateada);
+			persona.setFechaActualizacion(fechaFinal);
 			persona.setActualizacionUsuario("APP");
 			personaRepositoryI.save(persona);				
 		}
