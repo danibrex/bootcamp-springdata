@@ -40,7 +40,7 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(2);
+(1);
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,10 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`id`, `nombre`, `apellidos`, `actualizacion_usuario`, `fecha_actualizacion`) VALUES
-(79, 'Registro de prueba', 'Registro de prueba', 'APP', '01-02-22 11:44:24');
+(1, 'Registro de prueba', 'prueba', 'APP', '01-02-22 11:44:24');
+
+INSERT INTO `persona` (`id`, `nombre`, `apellidos`, `actualizacion_usuario`, `fecha_actualizacion`) VALUES
+(2, 'Registro de prueba2', 'prueba2', 'APP', '01-02-22 11:44:26');
 
 
 --
@@ -83,8 +86,7 @@ ALTER TABLE `persona`
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
-ALTER TABLE `persona`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
