@@ -49,12 +49,13 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 --
 
 DROP TABLE IF EXISTS `persona`;
+
 CREATE TABLE `persona` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `apellidos` varchar(45) NOT NULL,
   `actualizacion_usuario` varchar(255) DEFAULT NULL,
-  `fecha_actualizacion` datetime(6) DEFAULT NULL
+  `fecha_actualizacion` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -62,7 +63,8 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`id`, `nombre`, `apellidos`, `actualizacion_usuario`, `fecha_actualizacion`) VALUES
-(1, 'Daniel', 'Gordon', 'APP', '2022-01-31 20:09:08.000000');
+(79, 'Registro de prueba', 'Registro de prueba', 'APP', '01-02-22 11:44:24');
+
 
 --
 -- Índices para tablas volcadas

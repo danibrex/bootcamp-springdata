@@ -1,12 +1,13 @@
 -- SQL Dump
 -- version 5.1.1
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-01-2022 a las 22:41:12
+-- Tiempo de generación: 31-01-2022 a las 22:41:12
 -- Versión del servidor: 10.4.21-MariaDB
 
 --
 -- Author Daniel
 --
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -26,16 +27,35 @@ USE `testjpa`;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `hibernate_sequence`
+--
+
+DROP TABLE IF EXISTS `hibernate_sequence`;
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `hibernate_sequence`
+--
+
+INSERT INTO `hibernate_sequence` (`next_val`) VALUES
+(2);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `persona`
 --
 
 DROP TABLE IF EXISTS `persona`;
-CREATE TABLE IF NOT EXISTS `persona` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `persona` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `apellidos` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+  `actualizacion_usuario` varchar(255) DEFAULT NULL,
+  `fecha_actualizacion` datetime(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `persona`
@@ -44,32 +64,25 @@ CREATE TABLE IF NOT EXISTS `persona` (
 INSERT INTO `persona` (`id`, `nombre`, `apellidos`, `actualizacion_usuario`, `fecha_actualizacion`) VALUES
 (1, 'Daniel', 'Gordon', 'APP', '2022-01-31 20:09:08.000000');
 
-/*
-INSERT INTO persona (id, nombre, apellidos) VALUES
-(1, 'Marta', 'Nelson'),
-(2, 'Daniel', 'Van'),
-(3, 'Lucas ', 'Grijander'),
-(4, 'Anastasio', 'Randelmore'),
-(5, 'Carmen', 'Esther'),
-(6, 'Daniel', 'Lord'),
-(7, 'Lucas', 'Martón'),
-(8, 'Sas', 'Anderson'),
-(9, 'Jander', 'Clander'),
-(10, 'Berta', 'Cleotilda'),
-(11, 'Anabel', 'Cart'),
-(12, 'Flanders', 'McYurtonite'),
-(13, 'Rissoto', 'Parmesani Ramnna'),
-(14, 'Julio', 'César'),
-(15, 'Carmen Esther', 'Pichaco'),
-(16, 'Felice J.', 'Anderson'),
-(17, 'Barman', 'Stranger '),
-(18, 'Babasos', 'Ambrosio'),
-(19, 'Bingo', 'Chacho'),
-(20, 'Noeman', 'Helderwitch'),
-(21, 'dede', 'dede');
+--
+-- Índices para tablas volcadas
+--
 
-*/
+--
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`id`);
 
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
